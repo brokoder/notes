@@ -1,0 +1,111 @@
+Pylint
+Pylint is a static code analyser for Python.
+Pylint analyses your code without actually running it. It checks for errors, enforces a coding standard, looks for code smells, 
+and can make suggestions about how the code could be refactored.
+- Installation
+ pip install pylint
+- Working with Pylint
+>> pylint <location of file/dir>
+
+Example Output
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+example output
+************* Module test_file
+test_file.py:45:0: R0902: Too many instance attributes (8/7) (too-many-instance-attributes)
+
+-------------------------------------------------------------------
+Your code has been rated at 9.82/10 (previous run: 10.00/10, -0.18)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Reference
+https://pypi.org/project/pylint/
+https://www.geeksforgeeks.org/pylint-module-in-python/
+************************************************************************************************
+
+
+
+MyPy
+Mypy is a static type checker for Python.
+If you sprinkle your code with type annotations, mypy can type check your code and find common bugs. As mypy is a static analyzer, 
+or a lint-like tool, the type annotations are just hints for mypy and don’t interfere when running your program. You run your program 
+with a standard Python interpreter, and the annotations are treated effectively as comments.
+
+-Installation
+ pip install mypy
+- Working with Pylint
+ mypy <location of file/dir>
+
+Example Output
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+test_file.py:8: error: Library stubs not installed for "requests" (or incompatible with Python 3.10)
+test_file.py:8: note: Hint: "python3 -m pip install types-requests"
+test_file.py:8: note: (or run "mypy --install-types" to install all missing stub packages)
+test_file.py:8: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+test_file.py:9: error: Skipping analyzing "bs4": module is installed, but missing library stubs or py.typed marker
+test_file.py:51: error: Incompatible types in assignment (expression has type "None", variable has type "str")
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Reference
+https://mypy.readthedocs.io/en/stable/getting_started.html
+************************************************************************************************
+
+
+Flake8
+Flake8 is a wrapper around these tools:
+  -PyFlakes
+  -pycodestyle
+  - Ned Batchelder’s McCabe script
+Flake8 runs all the tools by launching the single flake8 command. It displays the warnings in a per-file, merged output.
+It is a great toolkit for checking your code base against coding style (PEP8), programming errors (like “library imported but unused” 
+and “Undefined name”) and to check cyclomatic complexity.
+
+Installation
+ pip install flake8
+Working with flake8
+ flake8 <location of file/dir>
+ 
+Example Output
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+test_file.py:25:80: E501 line too long (80 > 79 characters)
+test_file.py:39:80: E501 line too long (82 > 79 characters)
+test_file.py:84:80: E501 line too long (80 > 79 characters)
+test_file.py:116:61: E203 whitespace before ':'
+test_file.py:131:80: E501 line too long (90 > 79 characters)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Reference 
+https://simpleisbetterthancomplex.com/packages/2016/08/05/flake8.html
+https://flake8.pycqa.org/en/latest/
+************************************************************************************************
+
+
+Black
+Linters such as pycodestyle or flake8 show whether your code is according to PEP8 format, which is the official Python style guide. 
+But the problem is that it gives a burden to the developers to fix this formatting style. 
+Here Black comes into play not only does it report format errors but also fixes them.
+
+
+Installation
+ pip install black
+Working with black
+ black <location of file/dir>
+ 
+ Example Output
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+reformatted test_file.py
+All done! ✨ 🍰 ✨
+1 file reformatted.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Reference 
+ https://pypi.org/project/black/ 
+ https://www.geeksforgeeks.org/python-code-formatting-using-black/
+************************************************************************************************
+
+Pre-commit
+Git hook scripts are useful for identifying simple issues before submission to code review. 
+We run our hooks on every commit to automatically point out issues in code such as missing semicolons, 
+trailing whitespace, and debug statements. By pointing these issues out before code review, this allows 
+a code reviewer to focus on the architecture of a change while not wasting time with trivial style nitpicks.
+
+Installation
+pip install pre-commit
+Reference 
+https://pre-commit.com/
