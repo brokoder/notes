@@ -2,10 +2,15 @@ Pylint
 Pylint is a static code analyser for Python.
 Pylint analyses your code without actually running it. It checks for errors, enforces a coding standard, looks for code smells, 
 and can make suggestions about how the code could be refactored.
+
 - Installation
  pip install pylint
 - Working with Pylint
 >> pylint <location of file/dir>
+
+- disable/enable pylint 
+ We can use pragma controls operate at a code level to disable / enable
+ refer https://pylint.pycqa.org/en/latest/user_guide/messages/message_control.html#block-disables
 
 Example Output
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -33,6 +38,9 @@ with a standard Python interpreter, and the annotations are treated effectively 
  pip install mypy
 - Working with Pylint
  mypy <location of file/dir>
+- Disabling mypy 
+ PEP 484 uses # type: ignore for ignoring type errors on particular lines. 
+ Also # mypy: ignore-errors at the top of the file you want to ignore all works
 
 Example Output
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -61,6 +69,10 @@ Installation
  pip install flake8
 Working with flake8
  flake8 <location of file/dir>
+Disabling flake8
+ files that contain '# flake8: noqa' are skipped.
+ lines that contain a # noqa comment at the end will not issue warnings.
+ you can ignore specific errors on a line with # noqa: <error>, e.g., # noqa: E234. Multiple codes can be given, separated by comma. The noqa token is case insensitive, the colon before the list of codes is required otherwise the part after noqa is ignored. Reference to error codes - https://flake8.pycqa.org/en/latest/user/error-codes.html
  
 Example Output
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -76,6 +88,30 @@ https://simpleisbetterthancomplex.com/packages/2016/08/05/flake8.html
 https://flake8.pycqa.org/en/latest/
 ************************************************************************************************
 
+
+Autoflake
+Autoflake removes unused imports and unused variables from Python code. It makes use of pyflakes(https://pypi.org/project/pyflakes/) to do this.
+Installation
+ pip install autoflake
+Working with autoflake
+ autoflake <location of file/dir>
+Disabling autoflake
+ To prevent that, without having to exclude the entire file, you can add a # noqa comment at the end of the line.
+
+Example Output
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+--- original/test_file.py
++++ fixed/test_file.py
+@@ -7,7 +7,6 @@
+ import argparse
+ import requests
+ from bs4 import BeautifulSoup
+-import abc
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Reference 
+https://pypi.org/project/autoflake/
+************************************************************************************************
 
 Black
 Linters such as pycodestyle or flake8 show whether your code is according to PEP8 format, which is the official Python style guide. 
@@ -99,13 +135,47 @@ Reference
  https://www.geeksforgeeks.org/python-code-formatting-using-black/
 ************************************************************************************************
 
+Bandit
+Bandit is a tool designed to find common security issues in Python code. To do this, Bandit processes each file, builds an AST from it, and runs appropriate plugins against the AST nodes. Once Bandit has finished scanning all the files, it generates a report.
+Installation
+ pip install bandit
+ 
+Reference 
+https://bandit.readthedocs.io/en/latest/start.html
+************************************************************************************************
+
 Pre-commit
 Git hook scripts are useful for identifying simple issues before submission to code review. 
 We run our hooks on every commit to automatically point out issues in code such as missing semicolons, 
 trailing whitespace, and debug statements. By pointing these issues out before code review, this allows 
 a code reviewer to focus on the architecture of a change while not wasting time with trivial style nitpicks.
+A really good documentation for precommit and how it is to be implemented is given in the offical site for pre commit. 
 
 Installation
 pip install pre-commit
 Reference 
 https://pre-commit.com/
+
+
+
+**********************************************************************************************************************************************************
+
+Pytest
+The pytest framework makes it easy to write small, readable tests, and can scale to support complex functional testing for applications and libraries.
+
+Conftest - The conftest.py file serves as a means of providing fixtures for an entire directory. Fixtures defined in a conftest.py can be used by any test in that package without needing to import them. https://docs.pytest.org/en/latest/reference/fixtures.html#conftest-py-sharing-fixtures-across-multiple-files
+
+Fixtures - Software test fixtures initialize test functions. They provide a fixed baseline so that tests execute reliably and produce consistent, repeatable, results. Initialization may setup services, state, or other operating environments. These are accessed by test functions through arguments; for each fixture used by a test function there is typically a parameter (named after the fixture) in the test function’s definition. https://docs.pytest.org/en/6.2.x/fixture.html?highlight=conftest
+
+Reference 
+https://docs.pytest.org/en/6.2.x/index.html
+api reference - https://docs.pytest.org/en/7.1.x/reference/reference.html
+************************************************************************************************
+
+
+Coverage 
+Coverage.py measures code coverage, typically during test execution. It uses the code analysis tools and tracing hooks provided in the Python standard library to determine which lines are executable, and which have been executed.
+ 
+Reference 
+https://coverage.readthedocs.io/en/6.4.2/
+************************************************************************************************
